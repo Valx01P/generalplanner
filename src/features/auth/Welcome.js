@@ -14,7 +14,7 @@ const Welcome = () => {
             {/* Dashboard Path URL routing option links */}
             <p><Link to="/dash/contacts">Go to contacts</Link></p>
 
-            <p><Link to="/dash/income">Go to contacts</Link></p>
+            <p><Link to="/dash/income">Go to income</Link></p>
 
             <p><Link to="/dash/info">Go to info</Link></p>
 

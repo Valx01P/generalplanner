@@ -1,14 +1,14 @@
-import { useGetIncomeQuery } from "./incomeApiSlice"
-import Income from "./Income"
+import { useGetContactsQuery } from "./contactsApiSlice"
+import Contact from "./Contact"
 
-const IncomeList = () => {
+const ContactsList = () => {
     const {
-        data: income,
+        data: contacts,
         isLoading,
         isSuccess,
         isError,
         error
-    } = useGetIncomeQuery()
+    } = useGetContactsQuery()
 
     let content
 
@@ -19,10 +19,10 @@ const IncomeList = () => {
     }
 
     if (isSuccess) {
-        const { ids } = income
+        const { ids } = contacts
 
         const tableContent = ids?.length
-            ? ids.map(incomeId => <Income key={incomeId} incomeId={incomeId} />)
+            ? ids.map(contactId => <Contact key={contactId} contactId={contactId} />)
             : null
 
         content = (
@@ -32,8 +32,9 @@ const IncomeList = () => {
                         <th scope="col" className="table__th note__created">Created</th>
                         <th scope="col" className="table__th note__updated">Updated</th>
                         <th scope="col" className="table__th note__status">Username</th>
-                        <th scope="col" className="table__th note__title">Title</th>
-                        <th scope="col" className="table__th note__title">Amount</th>
+                        <th scope="col" className="table__th note__title">Name</th>
+                        <th scope="col" className="table__th note__title">Phone</th>
+                        <th scope="col" className="table__th note__title">Email</th>
                         <th scope="col" className="table__th note__username">Description</th>
                         <th scope="col" className="table__th note__edit">Edit</th>
                     </tr>
@@ -47,4 +48,4 @@ const IncomeList = () => {
 
     return content
 }
-export default IncomeList
+export default ContactsList

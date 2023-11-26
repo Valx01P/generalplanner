@@ -4,11 +4,11 @@ import Public from './components/Public'
 import Login from './features/auth/Login';
 import DashLayout from './components/DashLayout'
 import Welcome from './features/auth/Welcome'
-import UsersList from './features/users/usersList'
-import PlansList from './features/plans/plansList'
-import InfoList from './features/info/infoList'
-import IncomeList from './features/income/incomeList'
-import ContactList from './features/contact/contactList'
+import UsersList from './features/users/UsersList'
+import PlansList from './features/plans/PlansList'
+import InfoList from './features/info/InfoList'
+import IncomeList from './features/income/IncomeList'
+import ContactList from './features/contacts/ContactsList'
 
 
 
