@@ -15,7 +15,6 @@ export const infoApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            keepUnusedDataFor: 5,
             transformResponse: responseData => {
                 const loadedInfo = responseData.map(info => {
                     info.id = info._id
@@ -32,11 +31,48 @@ export const infoApiSlice = apiSlice.injectEndpoints({
                 } else return [{ type: 'Info', id: 'LIST' }]
             }
         }),
+        addNewInfo: builder.mutation({
+            query: initialInfoData => ({
+                url: '/info',
+                method: 'POST',
+                body: {
+                    ...initialInfoData,
+                }
+            }),
+            invalidatesTags: [
+                { type: 'Info', id: "LIST" }
+            ]
+        }),
+        updateInfo: builder.mutation({
+            query: initialInfoData => ({
+                url: '/info',
+                method: 'PATCH',
+                body: {
+                    ...initialInfoData,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Info', id: arg.id }
+            ]
+        }),
+        deleteUser: builder.mutation({
+            query: ({ id }) => ({
+                url: `/info`,
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Info', id: arg.id }
+            ]
+        }),
     }),
 })
 
 export const {
     useGetInfoQuery,
+    useAddNewInfoMutation,
+    useUpdateInfoMutation,
+    useDeleteInfoMutation,
 } = infoApiSlice
 
 // returns the query result object

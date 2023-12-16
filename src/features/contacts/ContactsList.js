@@ -1,5 +1,6 @@
 import { useGetContactsQuery } from "./contactsApiSlice"
-import Contact from "./Contact"
+import Contact from "./contact"
+import { isAdmin, username } from "../auth/authSlice"
 
 const ContactsList = () => {
     const {
@@ -8,7 +9,11 @@ const ContactsList = () => {
         isSuccess,
         isError,
         error
-    } = useGetContactsQuery()
+    } = useGetContactsQuery('contactList', {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 
@@ -19,11 +24,17 @@ const ContactsList = () => {
     }
 
     if (isSuccess) {
-        const { ids } = contacts
+        const { ids, entities } = contacts
 
-        const tableContent = ids?.length
-            ? ids.map(contactId => <Contact key={contactId} contactId={contactId} />)
-            : null
+        let filteredIds
+        if (isAdmin) {
+            filteredIds = [...ids]
+        } else {
+            filteredIds = ids.filter(contactId => entities[contactId].username === username)
+        }
+
+        const tableContent = ids?.length && filteredIds.map(contactId => <Contact key={contactId} contactId={contactId} />)
+
 
         content = (
             <table className="table table--notes">

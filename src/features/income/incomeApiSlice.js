@@ -15,7 +15,6 @@ export const incomeApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            keepUnusedDataFor: 5,
             transformResponse: responseData => {
                 const loadedIncome = responseData.map(income => {
                     income.id = income._id
@@ -32,11 +31,49 @@ export const incomeApiSlice = apiSlice.injectEndpoints({
                 } else return [{ type: 'Income', id: 'LIST' }]
             }
         }),
+        
+        addNewIncome: builder.mutation({
+            query: initialIncomeData => ({
+                url: '/income',
+                method: 'POST',
+                body: {
+                    ...initialIncomeData,
+                }
+            }),
+            invalidatesTags: [
+                { type: 'Income', id: "LIST" }
+            ]
+        }),
+        updateIncome: builder.mutation({
+            query: initialIncomeData => ({
+                url: '/income',
+                method: 'PATCH',
+                body: {
+                    ...initialIncomeData,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Income', id: arg.id }
+            ]
+        }),
+        deleteIncome: builder.mutation({
+            query: ({ id }) => ({
+                url: `/income`,
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Income', id: arg.id }
+            ]
+        }),
     }),
 })
 
 export const {
     useGetIncomeQuery,
+    useAddNewIncomeMutation,
+    useUpdateIncomeMutation,
+    useDeleteIncomeMutation,
 } = incomeApiSlice
 
 // returns the query result object

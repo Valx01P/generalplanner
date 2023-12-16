@@ -1,5 +1,6 @@
 import { useGetIncomeQuery } from "./incomeApiSlice"
 import Income from "./Income"
+import { isAdmin, username } from "../auth/authSlice"
 
 const IncomeList = () => {
     const {
@@ -8,7 +9,11 @@ const IncomeList = () => {
         isSuccess,
         isError,
         error
-    } = useGetIncomeQuery()
+    } = useGetIncomeQuery('incomeList', {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 
@@ -19,11 +24,17 @@ const IncomeList = () => {
     }
 
     if (isSuccess) {
-        const { ids } = income
+        const { ids, entities } = income
 
-        const tableContent = ids?.length
-            ? ids.map(incomeId => <Income key={incomeId} incomeId={incomeId} />)
-            : null
+        let filteredIds
+        if (isAdmin) {
+            filteredIds = [...ids]
+        } else {
+            filteredIds = ids.filter(incomeId => entities[incomeId].username === username)
+        }
+
+        const tableContent = ids?.length && filteredIds.map(incomeId => <Income key={incomeId} incomeId={incomeId} />)
+
 
         content = (
             <table className="table table--notes">

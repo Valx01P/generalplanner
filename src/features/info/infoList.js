@@ -1,5 +1,6 @@
 import { useGetInfoQuery } from "./infoApiSlice"
 import Info from "./Info"
+import { isAdmin, username } from "../auth/authSlice"
 
 const InfoList = () => {
     const {
@@ -8,7 +9,11 @@ const InfoList = () => {
         isSuccess,
         isError,
         error
-    } = useGetInfoQuery()
+    } = useGetInfoQuery('infoList', {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 
@@ -19,11 +24,16 @@ const InfoList = () => {
     }
 
     if (isSuccess) {
-        const { ids } = info
+        const { ids, entities } = info
 
-        const tableContent = ids?.length
-            ? ids.map(infoId => <Info key={infoId} infoId={infoId} />)
-            : null
+        let filteredIds
+        if (isAdmin) {
+            filteredIds = [...ids]
+        } else {
+            filteredIds = ids.filter(infoId => entities[infoId].username === username)
+        }
+
+        const tableContent = ids?.length && filteredIds.map(infoId => <Info key={infoId} infoId={infoId} />)
 
         content = (
             <table className="table table--notes">
