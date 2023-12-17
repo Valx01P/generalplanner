@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 import useAuth from '../../hooks/useAuth'
 
-const NewInfoForm = ({}) => {
+const NewInfoForm = () => {
 
     const { _id } = useAuth()
 

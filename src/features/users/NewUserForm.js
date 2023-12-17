@@ -69,6 +69,8 @@ const NewUserForm = () => {
     const errClass = isError ? "errmsg" : "offscreen"
     const validUserClass = !validUsername ? 'form__input--incomplete' : ''
     const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
+    const validNameClass = !name ? "form__input--incomplete" : ''
+    const validDescriptionClass = !description ? "form__input--incomplete" : ''
 
     const content = (
         <>
@@ -113,7 +115,7 @@ const NewUserForm = () => {
                 <label className="form__label" htmlFor="name">
                     Name: <span className="nowrap"></span></label>
                 <input
-                    className={`form__input ${validPwdClass}`}
+                    className={`form__input ${validNameClass}`}
                     id="name"
                     name="name"
                     type="text"
@@ -124,7 +126,7 @@ const NewUserForm = () => {
                 <label className="form__label" htmlFor="description">
                     Description: <span className="nowrap"></span></label>
                 <input
-                    className={`form__input ${validPwdClass}`}
+                    className={`form__input ${validDescriptionClass}`}
                     id="description"
                     name="description"
                     type="text"
