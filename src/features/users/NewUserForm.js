@@ -34,14 +34,6 @@ const NewUserForm = () => {
     }, [password])
 
     useEffect(() => {
-        setName()
-    }, [name])
-
-    useEffect(() => {
-        setDescription()
-    }, [description])
-
-    useEffect(() => {
         if (isSuccess) {
             setUsername('')
             setPassword('')
@@ -113,7 +105,7 @@ const NewUserForm = () => {
                 />
 
                 <label className="form__label" htmlFor="name">
-                    Name: <span className="nowrap"></span></label>
+                    Name: </label>
                 <input
                     className={`form__input ${validNameClass}`}
                     id="name"
@@ -124,16 +116,14 @@ const NewUserForm = () => {
                 />
 
                 <label className="form__label" htmlFor="description">
-                    Description: <span className="nowrap"></span></label>
-                <input
+                    Description: </label>
+                <textarea
                     className={`form__input ${validDescriptionClass}`}
                     id="description"
                     name="description"
-                    type="text"
                     value={description}
                     onChange={onDescriptionChanged}
                 />
-
             </form>
         </>
     )

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAddNewIncomeMutation } from "./incomesApiSlice"
+import { useAddNewIncomeMutation } from "./incomeApiSlice"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 import useAuth from '../../hooks/useAuth'
 
 const NewIncomeForm = () => {
 
-    const { _id } = useAuth()
+    const { id } = useAuth()
 
     const [addNewIncome, {
         isLoading,
@@ -40,7 +40,7 @@ const NewIncomeForm = () => {
     const onSaveIncomeClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
-            await addNewIncome({ user: _id, amount, title, description })
+            await addNewIncome({ user: id, amount, title, description })
         }
     }
 

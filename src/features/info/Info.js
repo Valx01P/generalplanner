@@ -7,7 +7,10 @@ import { selectInfoById } from './infoApiSlice'
 
 const Info = ({ infoId }) => {
 
+    console.log('Info ID - Info ID:', infoId); //DEBUGGING
+
     const info = useSelector(state => selectInfoById(state, infoId))
+    console.log('Info Component - Info:', info); //DEBUGGING
 
     const navigate = useNavigate()
 

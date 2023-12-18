@@ -7,7 +7,7 @@ import useAuth from '../../hooks/useAuth'
 
 const NewContactForm = () => {
 
-    const { _id } = useAuth()
+    const { id } = useAuth()
 
     const [addNewContact, {
         isLoading,
@@ -43,7 +43,7 @@ const NewContactForm = () => {
     const onSaveContactClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
-            await addNewContact({ user: _id, name, phone, email, description })
+            await addNewContact({ user: id, name, phone, email, description })
         }
     }
 

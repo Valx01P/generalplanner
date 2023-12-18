@@ -1,8 +1,11 @@
 import { useGetContactsQuery } from "./contactsApiSlice"
-import Contact from "./contact"
-import { isAdmin, username } from "../auth/authSlice"
+import Contact from "./Contact"
+import useAuth from "../../hooks/useAuth"
 
 const ContactsList = () => {
+
+    const { isAdmin, username } = useAuth()
+
     const {
         data: contacts,
         isLoading,

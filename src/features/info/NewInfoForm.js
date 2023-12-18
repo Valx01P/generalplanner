@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAddNewInfoMutation } from "./infosApiSlice"
+import { useAddNewInfoMutation } from "./infoApiSlice"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 import useAuth from '../../hooks/useAuth'
 
 const NewInfoForm = () => {
 
-    const { _id } = useAuth()
+    const { id } = useAuth()
+    console.log(useAuth())
 
     const [addNewInfo, {
         isLoading,
@@ -37,7 +38,7 @@ const NewInfoForm = () => {
     const onSaveInfoClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
-            await addNewInfo({ user: _id, title, description })
+            await addNewInfo({ user: id, title, description })
         }
     }
 
@@ -83,6 +84,15 @@ const NewInfoForm = () => {
                     value={description}
                     onChange={onDescriptionChanged}
                 />
+                {/* <div className="form__control-bar">
+                    <button
+                        className="icon-button"
+                        title="Save"
+                        disabled={!canSave}
+                    >
+                        <p>Submit</p>
+                    </button>
+                </div> */}
             </form>
         </>
     )

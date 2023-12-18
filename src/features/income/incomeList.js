@@ -1,8 +1,11 @@
 import { useGetIncomeQuery } from "./incomeApiSlice"
 import Income from "./Income"
-import { isAdmin, username } from "../auth/authSlice"
+import useAuth from './../../hooks/useAuth';
 
 const IncomeList = () => {
+
+    const { isAdmin, username } = useAuth()
+    
     const {
         data: income,
         isLoading,

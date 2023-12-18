@@ -15,12 +15,26 @@ export const contactsApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
+            // transformResponse: responseData => {
+            //     const loadedContacts = responseData.map(contact => {
+            //         contact.id = contact._id
+            //         return contact
+            //     });
+            //     return contactsAdapter.setAll(initialState, loadedContacts)
+            // },
             transformResponse: responseData => {
-                const loadedContacts = responseData.map(contact => {
-                    contact.id = contact._id
-                    return contact
-                });
-                return contactsAdapter.setAll(initialState, loadedContacts)
+                if (Array.isArray(responseData)) {
+                    // Map and transform each item in the responseData
+                    const loadedContacts = responseData.map(contact => ({
+                        ...contact,
+                        id: contact._id, // Assuming _id is present in the response data
+                    }));
+            
+                    return loadedContacts; // Return the transformed data
+                } else {
+                    console.error('Invalid response data format:', responseData);
+                    return []; // or handle it in a way that makes sense for your application
+                }
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {

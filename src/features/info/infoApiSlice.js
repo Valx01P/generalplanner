@@ -15,12 +15,38 @@ export const infoApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
+            // transformResponse: responseData => {
+            //     const loadedInfo = responseData.map(info => {
+            //         info.id = info._id
+            //         return info
+            //     });
+            //     return infoAdapter.setAll(initialState, loadedInfo)
+            // },
+            // transformResponse: responseData => {
+            //     if (Array.isArray(responseData)) {
+            //         const loadedInfo = responseData.map(info => {
+            //             info.id = info._id
+            //             return info
+            //         });
+            //         return infoAdapter.setAll(initialState, loadedInfo);
+            //     } else {
+            //         console.error('Invalid response data format:', responseData);
+            //         return initialState; // or handle it in a way that makes sense for your application
+            //     }
+            // },
             transformResponse: responseData => {
-                const loadedInfo = responseData.map(info => {
-                    info.id = info._id
-                    return info
-                });
-                return infoAdapter.setAll(initialState, loadedInfo)
+                if (Array.isArray(responseData)) {
+                    // Map and transform each item in the responseData
+                    const loadedInfo = responseData.map(info => ({
+                        ...info,
+                        id: info._id, // Assuming _id is present in the response data
+                    }));
+            
+                    return loadedInfo; // Return the transformed data
+                } else {
+                    console.error('Invalid response data format:', responseData);
+                    return []; // or handle it in a way that makes sense for your application
+                }
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {

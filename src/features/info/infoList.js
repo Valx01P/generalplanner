@@ -1,8 +1,12 @@
 import { useGetInfoQuery } from "./infoApiSlice"
 import Info from "./Info"
-import { isAdmin, username } from "../auth/authSlice"
+import useAuth from "../../hooks/useAuth"
 
 const InfoList = () => {
+
+    const { isAdmin, username } = useAuth()
+    console.log('isAdmin:', isAdmin, 'username:', username) //debugging
+
     const {
         data: info,
         isLoading,
@@ -24,6 +28,7 @@ const InfoList = () => {
     }
 
     if (isSuccess) {
+        console.log('Info Data:', info)
         const { ids, entities } = info
 
         let filteredIds
@@ -33,7 +38,15 @@ const InfoList = () => {
             filteredIds = ids.filter(infoId => entities[infoId].username === username)
         }
 
-        const tableContent = ids?.length && filteredIds.map(infoId => <Info key={infoId} infoId={infoId} />)
+        console.log('All IDs:', ids);       //debugging
+        console.log('Filtered IDs:', filteredIds);      //debugging
+
+        
+        // const tableContent = ids?.length && filteredIds.map(infoId => <Info key={infoId} infoId={infoId} />)
+        const tableContent = ids?.length && filteredIds.map(infoId => {
+            console.log('Info entity:', entities[infoId]);
+            return <Info key={infoId} infoId={infoId} />;
+         });
 
         content = (
             <table className="table table--notes">

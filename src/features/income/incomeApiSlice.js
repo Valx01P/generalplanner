@@ -15,12 +15,26 @@ export const incomeApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
+            // transformResponse: responseData => {
+            //     const loadedIncome = responseData.map(income => {
+            //         income.id = income._id
+            //         return income
+            //     });
+            //     return incomeAdapter.setAll(initialState, loadedIncome)
+            // },
             transformResponse: responseData => {
-                const loadedIncome = responseData.map(income => {
-                    income.id = income._id
-                    return income
-                });
-                return incomeAdapter.setAll(initialState, loadedIncome)
+                if (Array.isArray(responseData)) {
+                    // Map and transform each item in the responseData
+                    const loadedIncome = responseData.map(income => ({
+                        ...income,
+                        id: income._id, // Assuming _id is present in the response data
+                    }));
+            
+                    return loadedIncome; // Return the transformed data
+                } else {
+                    console.error('Invalid response data format:', responseData);
+                    return []; // or handle it in a way that makes sense for your application
+                }
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {
