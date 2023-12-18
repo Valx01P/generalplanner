@@ -31,21 +31,41 @@ export const infoApiSlice = apiSlice.injectEndpoints({
             //         return infoAdapter.setAll(initialState, loadedInfo);
             //     } else {
             //         console.error('Invalid response data format:', responseData);
-            //         return initialState; // or handle it in a way that makes sense for your application
+            //         return initialState;
+            //     }
+            // },
+            // transformResponse: responseData => {
+            //     if (Array.isArray(responseData)) {
+            //         // Map and transform each item in the responseData
+            //         const loadedInfo = responseData.map(info => ({
+            //             ...info,
+            //             id: info._id, // Assuming _id is present in the response data
+            //         }));
+            
+            //         return loadedInfo; // Return the transformed data
+            //     } else {
+            //         console.error('Invalid response data format:', responseData);
+            //         return [];
             //     }
             // },
             transformResponse: responseData => {
                 if (Array.isArray(responseData)) {
-                    // Map and transform each item in the responseData
+                    // Assuming that responseData is an array of info objects
                     const loadedInfo = responseData.map(info => ({
                         ...info,
-                        id: info._id, // Assuming _id is present in the response data
-                    }));
-            
-                    return loadedInfo; // Return the transformed data
+                        id: info._id, // Adding id, _id is present in the response data
+                    }))
+
+                    return {
+                        ids: loadedInfo.map(info => info.id),
+                        entities: loadedInfo.reduce((acc, info) => {
+                            acc[info.id] = info
+                            return acc
+                        }, {}),
+                    }
                 } else {
                     console.error('Invalid response data format:', responseData);
-                    return []; // or handle it in a way that makes sense for your application
+                    return { ids: [], entities: {} }
                 }
             },
             providesTags: (result, error, arg) => {

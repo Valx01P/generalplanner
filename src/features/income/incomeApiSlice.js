@@ -24,16 +24,22 @@ export const incomeApiSlice = apiSlice.injectEndpoints({
             // },
             transformResponse: responseData => {
                 if (Array.isArray(responseData)) {
-                    // Map and transform each item in the responseData
+                    // Assuming that responseData is an array of info objects
                     const loadedIncome = responseData.map(income => ({
                         ...income,
-                        id: income._id, // Assuming _id is present in the response data
-                    }));
-            
-                    return loadedIncome; // Return the transformed data
+                        id: income._id, // Adding id, _id is present in the response data
+                    }))
+
+                    return {
+                        ids: loadedIncome.map(income => income.id),
+                        entities: loadedIncome.reduce((acc, income) => {
+                            acc[income.id] = income
+                            return acc
+                        }, {}),
+                    }
                 } else {
                     console.error('Invalid response data format:', responseData);
-                    return []; // or handle it in a way that makes sense for your application
+                    return { ids: [], entities: {} }
                 }
             },
             providesTags: (result, error, arg) => {

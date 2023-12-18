@@ -29,7 +29,7 @@ const NewContactForm = () => {
             setPhone('')
             setEmail('')
             setDescription('')
-            navigate('/dash/contact')
+            navigate('/dash/contacts')
         }
     }, [isSuccess, navigate])
 
