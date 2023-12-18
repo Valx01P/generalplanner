@@ -6,9 +6,9 @@ import EditIncomeForm from './EditIncomeForm'
 const EditIncome = () => {
     const { id } = useParams()
 
-    const Income = useSelector(state => selectIncomeById(state, id))
+    const income = useSelector(state => selectIncomeById(state, id))
 
-    const content = Income ? <EditIncomeForm Income={Income} /> : <p>Loading...</p>
+    const content = income ? <EditIncomeForm income={income} /> : <p>Loading...</p>
 
     return content
 }

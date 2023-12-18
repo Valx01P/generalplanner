@@ -8,6 +8,7 @@ const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const EditUserForm = ({ user }) => {
+    console.log("User Stuff:", user) //debugging
 
     const [updateUser, {
         isLoading,
@@ -28,8 +29,8 @@ const EditUserForm = ({ user }) => {
     const [validUsername, setValidUsername] = useState(false)
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
+    const [name, setName] = useState(user.name)
+    const [description, setDescription] = useState(user.description)
 
     useEffect(() => {
         setValidUsername(USER_REGEX.test(username))
@@ -40,18 +41,12 @@ const EditUserForm = ({ user }) => {
     }, [password])
 
     useEffect(() => {
-        setName()
-    }, [name])
-
-    useEffect(() => {
-        setDescription()
-    }, [description])
-
-    useEffect(() => {
         console.log(isSuccess)
         if (isSuccess || isDelSuccess) {
             setUsername('')
             setPassword('')
+            setName('')
+            setDescription('')
             navigate('/dash/users')
         }
 
@@ -76,16 +71,16 @@ const EditUserForm = ({ user }) => {
 
     let canSave
     if (password) {
-        canSave = [validUsername, validPassword].every(Boolean) && !isLoading
+        canSave = [validUsername, validPassword, name, description].every(Boolean) && !isLoading
     } else {
-        canSave = [validUsername].every(Boolean) && !isLoading
+        canSave = [validUsername, name, description].every(Boolean) && !isLoading
     }
 
     const errClass = (isError || isDelError) ? "errmsg" : "offscreen"
     const validUserClass = !validUsername ? 'form__input--incomplete' : ''
     const validPwdClass = password && !validPassword ? 'form__input--incomplete' : ''
-    const validNameClass = !name ? "form__input--incomplete" : ''
-    const validDescriptionClass = !description ? "form__input--incomplete" : ''
+    const validNameClass = !name ? 'form__input--incomplete' : ''
+    const validDescriptionClass = !description ? 'form__input--incomplete' : ''
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
@@ -139,7 +134,7 @@ const EditUserForm = ({ user }) => {
                 />
 
                 <label className="form__label" htmlFor="name">
-                    Name: <span className="nowrap"></span></label>
+                    Name: </label>
                 <input
                     className={`form__input ${validNameClass}`}
                     id="name"
@@ -150,7 +145,7 @@ const EditUserForm = ({ user }) => {
                 />
 
                 <label className="form__label" htmlFor="description">
-                    Description: <span className="nowrap"></span></label>
+                    Description: </label>
                 <input
                     className={`form__input ${validDescriptionClass}`}
                     id="description"
@@ -159,7 +154,6 @@ const EditUserForm = ({ user }) => {
                     value={description}
                     onChange={onDescriptionChanged}
                 />
-
             </form>
         </>
     )

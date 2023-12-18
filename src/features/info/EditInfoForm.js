@@ -3,11 +3,8 @@ import { useUpdateInfoMutation, useDeleteInfoMutation } from "./infoApiSlice"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
-import useAuth from "../../hooks/useAuth"
 
 const EditInfoForm = ({ info }) => {
-
-    const { _id } = useAuth()
 
     const [updateInfo, {
         isLoading,
@@ -44,7 +41,7 @@ const EditInfoForm = ({ info }) => {
 
     const onSaveInfoClicked = async (e) => {
         if (canSave) {
-            await updateInfo({ id: info.id, user: _id, title, description })
+            await updateInfo({ id: info.id, title, description })
         }
     }
     const onDeleteInfoClicked = async () => {

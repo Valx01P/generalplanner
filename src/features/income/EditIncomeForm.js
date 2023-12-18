@@ -3,11 +3,8 @@ import { useUpdateIncomeMutation, useDeleteIncomeMutation } from "./incomeApiSli
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
-import useAuth from "../../hooks/useAuth"
 
 const EditIncomeForm = ({ income }) => {
-
-    const { _id } = useAuth()
 
     const [updateIncome, {
         isLoading,
@@ -47,7 +44,7 @@ const EditIncomeForm = ({ income }) => {
 
     const onSaveIncomeClicked = async (e) => {
         if (canSave) {
-            await updateIncome({ id: income.id, user: _id, title, description, amount })
+            await updateIncome({ id: income.id, title, description, amount })
         }
     }
     const onDeleteIncomeClicked = async () => {

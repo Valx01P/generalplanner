@@ -101,7 +101,7 @@ export const infoApiSlice = apiSlice.injectEndpoints({
                 { type: 'Info', id: arg.id }
             ]
         }),
-        deleteUser: builder.mutation({
+        deleteInfo: builder.mutation({
             query: ({ id }) => ({
                 url: `/info`,
                 method: 'DELETE',

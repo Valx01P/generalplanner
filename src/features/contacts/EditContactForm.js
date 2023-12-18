@@ -3,11 +3,8 @@ import { useUpdateContactMutation, useDeleteContactMutation } from "./contactsAp
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
-import useAuth from "../../hooks/useAuth"
 
 const EditContactForm = ({ contact }) => {
-
-    const { _id } = useAuth()
 
     const [updateContact, {
         isLoading,
@@ -37,7 +34,7 @@ const EditContactForm = ({ contact }) => {
             setPhone('')
             setDescription('')
             setEmail('')
-            navigate('/dash/contact')
+            navigate('/dash/contacts')
         }
 
     }, [isSuccess, isDelSuccess, navigate])
@@ -52,7 +49,7 @@ const EditContactForm = ({ contact }) => {
 
     const onSaveContactClicked = async (e) => {
         if (canSave) {
-            await updateContact({ id: contact.id, user: _id, name, phone, description, email })
+            await updateContact({ id: contact.id, name, phone, description, email })
         }
     }
     const onDeleteContactClicked = async () => {
