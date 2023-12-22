@@ -2,13 +2,11 @@ import { useGetInfoQuery } from "./infoApiSlice"
 import Info from "./Info"
 import useAuth from "../../hooks/useAuth"
 import { PulseLoader } from 'react-spinners/PulseLoader';
-import { selectAllUsers } from "../users/usersApiSlice";
-import { useSelector } from "react-redux";
 
 const InfoList = () => {
     
     const { isAdmin, username } = useAuth()
-    console.log('isAdmin:', isAdmin, 'username:', username) //debugging
+    // console.log('isAdmin:', isAdmin, 'username:', username) //debugging
 
     const {
         data: info,
@@ -31,11 +29,11 @@ const InfoList = () => {
     }
 
     if (isSuccess) {
-        console.log('Info Data:', info)                                 //  debugging
-        if (!info?.ids || !info?.entities) {                            //
-            console.error('Invalid info data structure:', info);        //
-            return null;                                                //
-        }                                                               //
+        // console.log('Info Data:', info)                                 //  debugging
+        // if (!info?.ids || !info?.entities) {                            //
+        //     console.error('Invalid info data structure:', info);        //
+        //     return null;                                                //
+        // }                                                               //
 
         const { ids, entities } = info
 

@@ -1,7 +1,6 @@
 import { useGetIncomeQuery } from "./incomeApiSlice"
 import Income from "./Income"
-import useAuth from './../../hooks/useAuth';
-import { PulseLoader } from 'react-spinners/PulseLoader';
+import useAuth from '../../hooks/useAuth';
 
 const IncomeList = () => {
 
@@ -21,7 +20,7 @@ const IncomeList = () => {
 
     let content
 
-    if (isLoading) content = <PulseLoader color={"#FFF"} />
+    if (isLoading) content = <p>Loading...</p>
 
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>
