@@ -15,7 +15,6 @@ const UsersList = () => {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     })
-    console.log('Slaves:', users)
     
     let content
 
