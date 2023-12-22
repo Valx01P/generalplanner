@@ -7,7 +7,8 @@ import useAuth from '../../hooks/useAuth'
 
 const NewContactForm = () => {
 
-    const { id } = useAuth()
+    const { id, username } = useAuth()
+    console.log("Contact id:", id, 'name nigga', username)
 
     const [addNewContact, {
         isLoading,

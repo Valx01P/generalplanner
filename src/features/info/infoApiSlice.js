@@ -11,10 +11,12 @@ const initialState = infoAdapter.getInitialState()
 export const infoApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getInfo: builder.query({
-            query: () => '/info',
-            validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError
-            },
+            query: () => ({
+                url: '/info',
+                validateStatus: (response, result) => {
+                    return response.status === 200 && !result.isError
+                },
+            }),
             // transformResponse: responseData => {
             //     const loadedInfo = responseData.map(info => {
             //         info.id = info._id

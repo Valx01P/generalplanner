@@ -1,13 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
-
-import { useSelector } from 'react-redux'
-import { selectContactById } from './contactsApiSlice'
+import { useGetContactsQuery } from './contactsApiSlice'
+import { memo } from 'react'
 
 const Contact = ({ contactId }) => {
 
-    const contact = useSelector(state => selectContactById(state, contactId))
+    const { contact } = useGetContactsQuery("contactsList", {
+        selectFromResult: ({ data }) => ({
+            contact: data?.entities[contactId]
+        }),
+    })
 
     const navigate = useNavigate()
 
@@ -42,4 +45,7 @@ const Contact = ({ contactId }) => {
 
     } else return null
 }
-export default Contact
+
+const memoizedContact = memo(Contact)
+
+export default memoizedContact

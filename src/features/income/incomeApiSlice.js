@@ -11,10 +11,12 @@ const initialState = incomeAdapter.getInitialState()
 export const incomeApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getIncome: builder.query({
-            query: () => '/income',
-            validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError
-            },
+            query: () => ({
+                url: '/income',
+                validateStatus: (response, result) => {
+                    return response.status === 200 && !result.isError
+                },
+            }),
             // transformResponse: responseData => {
             //     const loadedIncome = responseData.map(income => {
             //         income.id = income._id

@@ -1,9 +1,12 @@
 import { useGetInfoQuery } from "./infoApiSlice"
 import Info from "./Info"
 import useAuth from "../../hooks/useAuth"
+import { PulseLoader } from 'react-spinners/PulseLoader';
+import { selectAllUsers } from "../users/usersApiSlice";
+import { useSelector } from "react-redux";
 
 const InfoList = () => {
-
+    
     const { isAdmin, username } = useAuth()
     console.log('isAdmin:', isAdmin, 'username:', username) //debugging
 
@@ -21,7 +24,7 @@ const InfoList = () => {
 
     let content
 
-    if (isLoading) content = <p>Loading...</p>
+    if (isLoading) content = <PulseLoader color={"#FFF"} />
 
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>

@@ -1,15 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
-
-import { useSelector } from 'react-redux'
-import { selectInfoById } from './infoApiSlice'
+import { useGetInfoQuery } from './infoApiSlice'
+import { memo } from 'react'
 
 const Info = ({ infoId }) => {
 
     console.log('Info ID - Info ID:', infoId); //DEBUGGING
 
-    const info = useSelector(state => selectInfoById(state, infoId))
+    const { info } = useGetInfoQuery("infoList", {
+        selectFromResult: ({ data }) => ({
+            info: data?.entities[infoId]
+        }),
+    })
+
     console.log('Info Component - Info:', info); //DEBUGGING
 
     const navigate = useNavigate()
@@ -42,4 +46,7 @@ const Info = ({ infoId }) => {
 
     } else return null
 }
-export default Info
+
+const memoizedInfo = memo(Info)
+
+export default memoizedInfo

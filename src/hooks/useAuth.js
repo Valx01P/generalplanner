@@ -1,32 +1,37 @@
-import { useSelector } from 'react-redux'
-import { selectCurrentToken } from "../features/auth/authSlice"
-import { selectAllUsers } from "../features/users/usersApiSlice"
-import { jwtDecode } from 'jwt-decode'
-// const { default: jwtDecode } = require("jwt-decode");
+import { useSelector } from 'react-redux';
+import { selectCurrentToken } from '../features/auth/authSlice';
+import { useGetUsersQuery, selectAllUsers } from '../features/users/usersApiSlice';
+import { jwtDecode } from 'jwt-decode';
 
 const useAuth = () => {
-    const allUsers = useSelector(selectAllUsers);
-    const token = useSelector(selectCurrentToken)
-    let isAdmin = false
-    let id = ""
-    let status = "User"
+    const token = useSelector(selectCurrentToken);
+    const { data: users, isSuccess } = useGetUsersQuery();
+    console.log(users);
 
-    if (token) {
-        const decoded = jwtDecode(token)
-        const { username, roles } = decoded.UserInfo
-        const user = allUsers.find((user) => user.username === username);
+    let isAdmin = false;
+    let id = '';
+    let status = 'User';
 
-        isAdmin = roles.includes('Admin')
+    if (token && isSuccess) {
+        const decoded = jwtDecode(token);
+        const { username, roles } = decoded.UserInfo;
 
-        if (isAdmin) status = "Admin"
-        
+        // Extract the users from the ids array and entities object
+        const allUsers = selectAllUsers(users);
+        const user = allUsers.ids?.map(id => allUsers.entities?.[id]).find((user) => user?.username === username);
+
+        isAdmin = roles.includes('Admin');
+
+        if (isAdmin) status = 'Admin';
+
         if (user) {
             id = user._id || '';
-          }
+        }
 
-        return { username, roles, id, status, isAdmin }
+        return { username, roles, id, status, isAdmin };
     }
 
-    return { username: '', roles: [], id: '', isAdmin, status }
-}
-export default useAuth
+    return { username: '', roles: [], id: '', isAdmin, status };
+};
+
+export default useAuth;

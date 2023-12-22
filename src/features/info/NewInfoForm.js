@@ -8,7 +8,6 @@ import useAuth from '../../hooks/useAuth'
 const NewInfoForm = () => {
 
     const { id } = useAuth()
-    console.log(useAuth())
 
     const [addNewInfo, {
         isLoading,

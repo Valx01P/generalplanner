@@ -1,14 +1,28 @@
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectIncomeById } from './incomeApiSlice'
+import { useGetIncomeQuery } from './incomeApiSlice'
+import useAuth from '../../hooks/useAuth'
+import PulseLoader from 'react-spinners/PulseLoader'
 import EditIncomeForm from './EditIncomeForm'
 
 const EditIncome = () => {
     const { id } = useParams()
+    
+    const { username } = useAuth()
 
-    const income = useSelector(state => selectIncomeById(state, id))
+    const { income } = useGetIncomeQuery("incomeList", {
+        selectFromResult: ({ data }) => ({
+            income: data?.entities[id]
+        }),
+    })
 
-    const content = income ? <EditIncomeForm income={income} /> : <p>Loading...</p>
+    if (!income) return <PulseLoader color={"#FFF"} />
+    //making sure the income belongs to the user using the access token data
+    if (income.username !== username) {
+        return <p className="errmsg">No access</p>
+    }
+
+    const content = <EditIncomeForm income={income} />
+
 
     return content
 }

@@ -1,14 +1,27 @@
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectContactById } from './contactsApiSlice'
+import { useGetContactsQuery } from './contactsApiSlice'
+import useAuth from '../../hooks/useAuth'
+import PulseLoader from 'react-spinners/PulseLoader'
 import EditContactForm from './EditContactForm'
 
 const EditContact = () => {
     const { id } = useParams()
 
-    const contact = useSelector(state => selectContactById(state, id))
+    const { username } = useAuth()
 
-    const content = contact ? <EditContactForm contact={contact} /> : <p>Loading...</p>
+    const { contact } = useGetContactsQuery("contactsList", {
+        selectFromResult: ({ data }) => ({
+            contact: data?.entities[id]
+        }),
+    })
+
+    if (!contact) return <PulseLoader color={"#FFF"} />
+    //making sure the contact belongs to the user using the access token data
+    if (contact.username !== username) {
+        return <h1>No access</h1>
+    }
+
+    const content = <EditContactForm contact={contact} />
 
     return content
 }

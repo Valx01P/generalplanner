@@ -1,14 +1,28 @@
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectInfoById } from './infoApiSlice'
+import { useGetInfoQuery } from './infoApiSlice'
+import useAuth from '../../hooks/useAuth'
+import PulseLoader from 'react-spinners/PulseLoader'
 import EditInfoForm from './EditInfoForm'
 
 const EditInfo = () => {
     const { id } = useParams()
 
-    const info = useSelector(state => selectInfoById(state, id))
+    const { username } = useAuth()
 
-    const content = info ? <EditInfoForm info={info} /> : <p>Loading...</p>
+    const { info } = useGetInfoQuery("infoList", {
+        selectFromResult: ({ data }) => ({
+            info: data?.entities[id]
+        }),
+    })
+
+    if (!info) return <PulseLoader color={"#FFF"} />
+    //making sure the info belongs to the user using the access token data
+    if (info.username !== username) {
+        return <p className="errmsg">No access</p>
+    }
+
+    const content = <EditInfoForm info={info} />
+
 
     return content
 }

@@ -1,13 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
-
-import { useSelector } from 'react-redux'
-import { selectIncomeById } from './incomeApiSlice'
+import { useGetIncomeQuery } from './incomeApiSlice'
+import { memo } from 'react'
 
 const Income = ({ incomeId }) => {
 
-    const income = useSelector(state => selectIncomeById(state, incomeId))
+
+    const { income } = useGetIncomeQuery("incomeList", {
+        selectFromResult: ({ data }) => ({
+            income: data?.entities[incomeId]
+        }),
+    })
 
     const navigate = useNavigate()
 
@@ -40,4 +44,7 @@ const Income = ({ incomeId }) => {
 
     } else return null
 }
-export default Income
+
+const memoizedIncome = memo(Income)
+
+export default memoizedIncome

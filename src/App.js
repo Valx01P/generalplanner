@@ -7,7 +7,7 @@ import Welcome from './features/auth/Welcome'
 import UsersList from './features/users/UsersList'
 import InfoList from './features/info/InfoList'
 import IncomeList from './features/income/IncomeList'
-import ContactList from './features/contacts/ContactsList'
+import ContactsList from './features/contacts/ContactsList'
 import NewUserForm from './features/users/NewUserForm'
 import NewInfoForm from './features/info/NewInfoForm'
 import NewIncomeForm from './features/income/NewIncomeForm'
@@ -20,8 +20,11 @@ import Prefetch from './features/auth/Prefetch'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
+import useTitle from './hooks/useTitle'
 
 function App() {
+  useTitle("TL - Home")
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -36,7 +39,7 @@ function App() {
                 <Route index element={<Welcome />} />
                 {/* Provides url names for path routing */}
                 <Route path="contacts">
-                  <Route index element={<ContactList />} />
+                  <Route index element={<ContactsList />} />
                   <Route path=":id" element={<EditContact />} />
                   <Route path="new" element={<NewContactForm />} />
                 </Route>
