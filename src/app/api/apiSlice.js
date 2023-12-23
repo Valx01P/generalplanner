@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://generalplanner.herokuapp.com', //if not http://localhost:3500
+    baseUrl: 'http://localhost:3500', //https://generalplanner-4b4d8b3f5429.herokuapp.com/
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token
