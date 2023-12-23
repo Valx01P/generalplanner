@@ -1,7 +1,6 @@
 import { useGetInfoQuery } from "./infoApiSlice"
 import Info from "./Info"
 import useAuth from "../../hooks/useAuth"
-import { PulseLoader } from 'react-spinners/PulseLoader';
 
 const InfoList = () => {
     
@@ -22,7 +21,7 @@ const InfoList = () => {
 
     let content
 
-    if (isLoading) content = <PulseLoader color={"#FFF"} />
+    if (isLoading) content = "Loading..."
 
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>

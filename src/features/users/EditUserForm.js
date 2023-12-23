@@ -66,6 +66,10 @@ const EditUserForm = ({ user }) => {
     }
 
     const onDeleteUserClicked = async () => {
+        if (username === "admin" || username === "user" || username === "Admin" || username === "User") {
+            alert("Cannot delete test admin or user")
+            return
+        }
         await deleteUser({ id: user.id })
     }
 

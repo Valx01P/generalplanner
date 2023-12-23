@@ -1,7 +1,6 @@
 import { useGetContactsQuery } from "./contactsApiSlice"
 import Contact from "./Contact"
 import useAuth from "../../hooks/useAuth"
-import { PulseLoader } from 'react-spinners/PulseLoader';
 
 const ContactsList = () => {
 
@@ -21,7 +20,7 @@ const ContactsList = () => {
 
     let content
 
-    if (isLoading) content = <PulseLoader color={"#FFF"} />
+    if (isLoading) content = "Loading..."
 
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>

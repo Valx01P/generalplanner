@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useGetInfoQuery } from './infoApiSlice'
 import useAuth from '../../hooks/useAuth'
-import PulseLoader from 'react-spinners/PulseLoader'
 import EditInfoForm from './EditInfoForm'
 
 const EditInfo = () => {
@@ -15,7 +14,7 @@ const EditInfo = () => {
         }),
     })
 
-    if (!info) return <PulseLoader color={"#FFF"} />
+    if (!info) return "Loading..."
     //making sure the info belongs to the user using the access token data
     if (info.username !== username) {
         return <p className="errmsg">No access</p>

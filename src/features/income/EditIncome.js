@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useGetIncomeQuery } from './incomeApiSlice'
 import useAuth from '../../hooks/useAuth'
-import PulseLoader from 'react-spinners/PulseLoader'
 import EditIncomeForm from './EditIncomeForm'
 
 const EditIncome = () => {
@@ -15,7 +14,7 @@ const EditIncome = () => {
         }),
     })
 
-    if (!income) return <PulseLoader color={"#FFF"} />
+    if (!income) return "Loading..."
     //making sure the income belongs to the user using the access token data
     if (income.username !== username) {
         return <p className="errmsg">No access</p>

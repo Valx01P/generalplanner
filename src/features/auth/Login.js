@@ -57,55 +57,66 @@ const Login = () => {
 
     const errClass = errMsg ? "errmsg" : "offscreen"
 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return "Loading..."
 
     const content = (
         <section className="public">
             <header>
-                <h1>Employee Login</h1>
+                <Link to="/"><h1>G - Planner / Login</h1></Link>
             </header>
             <main className="login">
-                <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
+                <div className='login-div'>
+                    <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
 
-                <form className="form" onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        className="form__input"
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        value={username}
-                        onChange={handleUserInput}
-                        autoComplete="off"
-                        required
-                    />
-
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        className="form__input"
-                        type="password"
-                        id="password"
-                        onChange={handlePwdInput}
-                        value={password}
-                        required
-                    />
-                    <button className="form__submit-button">Sign In</button>
-
-
-                    <label htmlFor="persist" className="form__persist">
+                    <form className="form" onSubmit={handleSubmit}>
+                        <label htmlFor="username">Username:</label>
                         <input
-                            type="checkbox"
-                            className="form__checkbox"
-                            id="persist"
-                            onChange={handleToggle}
-                            checked={persist}
+                            className="form__input"
+                            type="text"
+                            id="username"
+                            ref={userRef}
+                            value={username}
+                            onChange={handleUserInput}
+                            autoComplete="off"
+                            required
                         />
-                        Trust This Device
-                    </label>
-                </form>
+
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            className="form__input"
+                            type="password"
+                            id="password"
+                            onChange={handlePwdInput}
+                            value={password}
+                            required
+                        />
+                        <button className="form__submit-button">Sign In</button>
+
+
+                        <label htmlFor="persist" className="form__persist">
+                            <input
+                                type="checkbox"
+                                className="form__checkbox"
+                                id="persist"
+                                onChange={handleToggle}
+                                checked={persist}
+                            />
+                            Trust This Device
+                        </label>
+                    </form>
+                </div>
+                <div className='side-main-test'>
+                    <p>Test Usernames & Passwords-</p>
+                    <p>Admin Test Username: admin</p>
+                    <p>Admin Test Password: admin123</p>
+                    <p>User Test Username: user</p>
+                    <p>User Test Password: user123</p>
+                </div>
             </main>
             <footer>
-                <Link to="/">Back to Home</Link>
+                <Link to="/"><h2>Home</h2></Link>
+                <span className='space'> • </span>
+                <Link to="/about"><h2>About</h2></Link>
             </footer>
         </section>
     )

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Public from './components/Public'
+import About from './components/About'
 import Login from './features/auth/Login'
 import DashLayout from './components/DashLayout'
 import Welcome from './features/auth/Welcome'
@@ -23,12 +24,13 @@ import { ROLES } from './config/roles'
 import useTitle from './hooks/useTitle'
 
 function App() {
-  useTitle("TL - Home")
+  useTitle("G - Planner")
 
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Public />} />
+        <Route path="about" element={<About />} />
         <Route path="login" element={<Login />} />
 
         <Route element={<PersistLogin />}>
