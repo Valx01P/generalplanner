@@ -1,8 +1,4 @@
 import { useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faRightFromBracket
-} from "@fortawesome/free-solid-svg-icons"
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 
 import { useSendLogoutMutation } from '../features/auth/authApiSlice'
@@ -55,7 +51,7 @@ const DashHeader = () => {
     if (INFO_REGEX.test(pathname)) {
         newInfoButton = (
             <button
-                className="icon-button"
+                className="word-button"
                 title="New Info"
                 onClick={onNewInfoClicked}
             >
@@ -68,7 +64,7 @@ const DashHeader = () => {
     if (CONTACTS_REGEX.test(pathname)) {
         newContactButton = (
             <button
-                className="icon-button"
+                className="word-button"
                 title="New Contact"
                 onClick={onNewContactClicked}
             >
@@ -81,7 +77,7 @@ const DashHeader = () => {
     if (INCOME_REGEX.test(pathname)) {
         newIncomeButton = (
             <button
-                className="icon-button"
+                className="word-button"
                 title="New Income"
                 onClick={onNewIncomeClicked}
             >
@@ -94,7 +90,7 @@ const DashHeader = () => {
     if (USERS_REGEX.test(pathname)) {
         newUserButton = (
             <button
-                className="icon-button"
+                className="word-button"
                 title="New User"
                 onClick={onNewUserClicked}
             >
@@ -111,7 +107,7 @@ const DashHeader = () => {
     if (!INFO_REGEX.test(pathname) && pathname.includes('/dash')) {
         infoButton = (
             <button
-                className="icon-button"
+                className="word-button"
                 title="Info"
                 onClick={onInfoClicked}
             >
@@ -125,7 +121,7 @@ const DashHeader = () => {
     if (!CONTACTS_REGEX.test(pathname) && pathname.includes('/dash')) {
         contactsButton = (
             <button
-                className="icon-button"
+                className="word-button"
                 title="Contacts"
                 onClick={onContactsClicked}
             >
@@ -138,7 +134,7 @@ const DashHeader = () => {
     if (!INCOME_REGEX.test(pathname) && pathname.includes('/dash')) {
         incomeButton = (
             <button
-                className="icon-button"
+                className="word-button"
                 title="Income"
                 onClick={onIncomeClicked}
             >
@@ -152,7 +148,7 @@ const DashHeader = () => {
         if (!USERS_REGEX.test(pathname) && pathname.includes('/dash')) {
             usersButton = (
                 <button
-                    className="icon-button"
+                    className="word-button"
                     title="Users"
                     onClick={onUsersClicked}
                 >
@@ -165,11 +161,11 @@ const DashHeader = () => {
 
     const logoutButton = (
         <button
-            className="icon-button"
+            className="word-button"
             title="Logout"
             onClick={sendLogout}
         >
-            <FontAwesomeIcon icon={faRightFromBracket} />
+            <p>Logout</p>
         </button>
     )
 
@@ -203,7 +199,7 @@ const DashHeader = () => {
             <header className="dash-header">
                 <div className={`dash-header__container ${dashClass}`}>
                     <Link to="/dash">
-                        <h1 className="dash-header__title">G - Planner</h1>
+                        <h1 className="dash-header__title title">G - Planner</h1>
                     </Link>
                     <nav className="dash-header__nav">
                         {buttonContent}

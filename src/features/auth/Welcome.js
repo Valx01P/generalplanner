@@ -15,22 +15,29 @@ const Welcome = () => {
 
             <h1>Welcome {username}!</h1>
             {/* Dashboard Path URL routing option links */}
-            <p><Link to="/dash/contacts">Go to contacts</Link></p>
+            <div className='contact__routes'>
+                <p className='contact'><Link to="/dash/contacts">Go to contacts</Link></p>
 
-            <p><Link to="/dash/contacts/new">Add New Contact</Link></p>
+                <p><Link to="/dash/contacts/new">Add New Contact</Link></p>
+            </div>
 
-            <p><Link to="/dash/income">Go to income</Link></p>
+            <div className='income__routes'>
+                <p className='income'><Link to="/dash/income">Go to income</Link></p>
 
-            <p><Link to="/dash/income/new">Add New Income</Link></p>
+                <p><Link to="/dash/income/new">Add New Income</Link></p>
+            </div>
 
-            <p><Link to="/dash/info">Go to info</Link></p>
+            <div className='info__routes'>
+                <p className='info'><Link to="/dash/info">Go to info</Link></p>
 
-            <p><Link to="/dash/info/new">Add New Info</Link></p>
+                <p><Link to="/dash/info/new">Add New Info</Link></p>
+            </div>
+            
+            <div className='user__routes'>
+                {(isAdmin) && <p className='user'><Link to="/dash/users">Go to users</Link></p>}
 
-            {(isAdmin) && <p><Link to="/dash/users">Go to users</Link></p>}
-
-            {(isAdmin) && <p><Link to="/dash/users/new">Add New User</Link></p>}
-
+                {(isAdmin) && <p><Link to="/dash/users/new">Add New User</Link></p>}
+            </div>
 
         </section>
     )

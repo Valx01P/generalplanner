@@ -187,6 +187,28 @@ h2 {
   place-content: center;
 }
 
+.word-button {
+  width: 48px;
+  height: 48px;
+  font-size: 1rem;
+  background-color: transparent;
+  border: none;
+  color: var(--COLOR);
+  display: grid;
+  place-content: center;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+.word-button:hover {
+  color: var(--LINK);
+  transition: 1s;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+}
+
 .icon-button:hover,
 .icon-button:focus-visible {
   transform: scale(1.2);
@@ -259,8 +281,64 @@ a:focus-visible {
 }
 
 .welcome a::before {
-  content: "➜ "
+  content: "⚙️";
+
 }
+
+.welcome .contact a::before {
+  content: "🤖";
+}
+
+
+.welcome .income a::before {
+  content: "💳";
+}
+
+.welcome .info a::before {
+  content: "📃";
+}
+
+
+.welcome .user a::before {
+  content: "👤";
+}
+
+.contact__routes {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 2em;
+  width: 30%;
+}
+
+.income__routes {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 2em;
+  width: 29.8%;
+}
+
+.info__routes {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 2em;
+  width: 27.75%;
+}
+
+.user__routes {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 2em;
+  width: 28.1%;
+}
+
 
 /* || DASH HEADER, CONTAINER & FOOTER */
 
@@ -284,7 +362,7 @@ a:focus-visible {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
-  gap: 0.5em;
+  gap: 2em;
 }
 
 .dash-container {
@@ -321,13 +399,48 @@ tr {
   display: contents;
 }
 
-.table {
-  font-size: 1rem;
-  width: 100%;
+.income__table {
+  font-size: 1.5rem;
+  width: 90%;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   color: var(--TABLE-COLOR);
   gap: 0.1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user__table {
+  font-size: 1.5rem;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact__table {
+  font-size: 1.5rem;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info__table {
+  font-size: 1.5rem;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .table__button {
@@ -344,7 +457,7 @@ tr {
 
 .table__th,
 .table__cell {
-  background-color: var(--TABLE-BGCOLOR);
+  background-color: #b7b8be;
   text-align: left;
   border: 1px solid var(--TABLE-COLOR);
   padding: 0.5em;
@@ -370,15 +483,6 @@ tr {
 .note__status {
   font-weight: bold;
 }
-
-.note__status--open {
-  color: var(--STATUS-OPEN);
-}
-
-.note__status--completed {
-  color: var(--STATUS-COMPLETE);
-}
-
 
 /* || FORM - GENERAL */
 
@@ -415,6 +519,18 @@ tr {
 .form__submit-button {
   padding: 0.5em;
   border-radius: 15px;
+  font-weight: 500;
+}
+
+.form__submit-button:hover {
+  cursor: pointer;
+  transition: 1s;
+  background-color: var(--LINK);
+  color: white;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
 }
 
 .form__input--text {
@@ -458,6 +574,15 @@ tr {
   gap: 0.5em;
 }
 
+.title {
+  font-size: 1.5em;
+}
+
+.status-footer {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
 @media screen and (max-width: 400px) {
   h1 {
     font-size: 2rem;
@@ -471,6 +596,9 @@ tr {
     font-size: 1.5rem;
   }
 
+  .word-button {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -503,5 +631,23 @@ tr {
 
   .form__action-buttons {
     position: static;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .word-button {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+    padding-right: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .word-button {
+    width: 24px;
+    height: 32px;
+    font-size: 0.8rem;
+    padding-right: 0.1rem;
   }
 }

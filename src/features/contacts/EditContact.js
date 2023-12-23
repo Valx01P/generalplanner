@@ -6,7 +6,7 @@ import EditContactForm from './EditContactForm'
 const EditContact = () => {
     const { id } = useParams()
 
-    const { username } = useAuth()
+    const { isAdmin, username } = useAuth()
 
     const { contact } = useGetContactsQuery("contactsList", {
         selectFromResult: ({ data }) => ({
@@ -16,8 +16,10 @@ const EditContact = () => {
 
     if (!contact) return "Loading..."
     //making sure the contact belongs to the user using the access token data
-    if (contact.username !== username) {
-        return <h1>No access</h1>
+    const hasAccess = contact.username === username || isAdmin;
+
+    if (!hasAccess) {
+      return <p className="errmsg">No access</p>;
     }
 
     const content = <EditContactForm contact={contact} />

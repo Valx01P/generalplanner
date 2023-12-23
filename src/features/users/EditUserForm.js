@@ -8,7 +8,7 @@ const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const EditUserForm = ({ user }) => {
-    console.log("User Stuff:", user) //debugging
+    // console.log("User Stuff:", user) //debugging
 
     const [updateUser, {
         isLoading,

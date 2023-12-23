@@ -43,21 +43,20 @@ const InfoList = () => {
             filteredIds = ids.filter(infoId => entities[infoId].username === username)
         }
 
-        console.log('All IDs:', ids);       //debugging
-        console.log('Filtered IDs:', filteredIds);      //debugging
+        // console.log('All IDs:', ids);       //debugging
+        // console.log('Filtered IDs:', filteredIds);      //debugging
 
         // const tableContent = ids?.length && filteredIds.map(infoId => <Info key={infoId} infoId={infoId} />)
         const tableContent = ids?.length && filteredIds.map(infoId => {
-            console.log('Info entity:', entities[infoId]); //debugging
+            // console.log('Info entity:', entities[infoId]); //debugging
             return <Info key={infoId} infoId={infoId} />;
          });
 
         content = (
-            <table className="table table--notes">
+            <table className="info__table">
                 <thead className="table__thead">
                     <tr>
                         <th scope="col" className="table__th note__created">Created</th>
-                        <th scope="col" className="table__th note__updated">Updated</th>
                         <th scope="col" className="table__th note__status">Username</th>
                         <th scope="col" className="table__th note__title">Title</th>
                         <th scope="col" className="table__th note__username">Description</th>

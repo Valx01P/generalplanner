@@ -17,15 +17,12 @@ const Contact = ({ contactId }) => {
     if (contact) {
         const created = new Date(contact.createdAt).toLocaleString('en-US', { day: 'numeric', month: 'long' })
 
-        const updated = new Date(contact.updatedAt).toLocaleString('en-US', { day: 'numeric', month: 'long' })
-
         const handleEdit = () => navigate(`/dash/contacts/${contactId}`)
 
         return (
             <tr className="table__row">
 
                 <td className="table__cell note__created">{created}</td>
-                <td className="table__cell note__updated">{updated}</td>
                 <td className="table__cell note__username">{contact.username}</td>
                 <td className="table__cell note__title">{contact.name}</td>
                 <td className="table__cell note__title">{contact.phone}</td>

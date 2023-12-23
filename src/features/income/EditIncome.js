@@ -6,7 +6,7 @@ import EditIncomeForm from './EditIncomeForm'
 const EditIncome = () => {
     const { id } = useParams()
     
-    const { username } = useAuth()
+    const { isAdmin, username } = useAuth()
 
     const { income } = useGetIncomeQuery("incomeList", {
         selectFromResult: ({ data }) => ({
@@ -16,8 +16,10 @@ const EditIncome = () => {
 
     if (!income) return "Loading..."
     //making sure the income belongs to the user using the access token data
-    if (income.username !== username) {
-        return <p className="errmsg">No access</p>
+    const hasAccess = income.username === username || isAdmin;
+
+    if (!hasAccess) {
+      return <p className="errmsg">No access</p>;
     }
 
     const content = <EditIncomeForm income={income} />
