@@ -1,10 +1,6 @@
 {
   "name": "tl-frontend",
   "version": "0.1.0",
-  "engines": {
-    "node": "18.12.1",
-    "npm": "8.19.2"
-  },
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
